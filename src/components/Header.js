@@ -10,5 +10,5 @@ export default function Header() {
         </Col>
       </Row>
     </header>
-  )
+  );
 }

@@ -1,14 +1,14 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
 
-export default function Footer() {
+export default function Header({ headerText }) {
   return (
-    <footer className="container-fluid">
+    <header className="container-fluid">
       <Row>
         <Col md={12}>
-          <h1>Copyright 2019</h1>
+          <h1>{headerText}</h1>
         </Col>
       </Row>
-    </footer>
+    </header>
   );
 }

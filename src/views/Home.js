@@ -8,43 +8,41 @@ import Loader from "../assets/img/loader.gif";
 
 class Home extends Component {
   constructor() {
-  	super();
+    super();
     this.state = {
       posts: [],
       loading: true
-    }
+    };
   }
 
   componentDidMount() {
     fetch(baseUrl)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
         this.setState({
-        	posts: result,
+          posts: result,
           loading: false
         });
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
         this.setState({
           ...this.state,
           loading: false
         });
-      })
+      });
   }
 
   render() {
-    const { posts, loading } = this.state
-    let postList = posts.map(post => 
-      <HomeItems key={post.id} post={post} />
-    )
-  	return (
-  		<div className="wrapper">
-  			<Header />
-  			<div className="container m-b-3">
-  				<Row>
-            {loading ? 
+    const { posts, loading } = this.state;
+    const postList = posts.map(post => <HomeItems key={post.id} post={post} />);
+    return (
+      <div className="wrapper">
+        <Header />
+        <div className="container m-b-3">
+          <Row>
+            {loading ? (
               <Col md={12} sm={12}>
                 <img
                   src={Loader}
@@ -52,14 +50,14 @@ class Home extends Component {
                   style={{ height: "100px" }}
                   alt="loading gif"
                 />
-              </Col> : null
-            }
-            {postList ? postList : null}
-	  			</Row>
-  			</div>
-  			<Footer />
-  		</div>
-  	)
+              </Col>
+            ) : null}
+            {postList || null}
+          </Row>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 }
 
