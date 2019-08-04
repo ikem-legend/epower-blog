@@ -3,12 +3,12 @@ import { Row, Col } from "reactstrap";
 
 export default function Header() {
   return (
-    <div className="container-fluid">
+    <header className="container-fluid">
       <Row>
-        <Col>
+        <Col md={12}>
           <h1>Epower Blog</h1>
         </Col>
       </Row>
-    </div>
+    </header>
   )
 }

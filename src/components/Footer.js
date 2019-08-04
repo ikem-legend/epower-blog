@@ -3,12 +3,12 @@ import { Row, Col } from "reactstrap";
 
 export default function Footer() {
   return (
-    <div className="container-fluid">
+    <footer className="container-fluid">
       <Row>
-        <Col>
+        <Col md={12}>
           <h1>Copyright 2019</h1>
         </Col>
       </Row>
-    </div>
+    </footer>
   )
 }

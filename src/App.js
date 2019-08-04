@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
 import SinglePost from "./views/SinglePost";
 import ErrorPage from "./views/ErrorPage";
+import "./assets/css/style.css";
 
 class App extends Component {
   render() {
