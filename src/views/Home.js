@@ -35,16 +35,16 @@ class Home extends Component {
   }
 
   render() {
-    const { posts } = this.state
+    const { posts, loading } = this.state
     let postList = posts.map(post => 
       <HomeItems key={post.id} post={post} />
     )
   	return (
   		<div className="wrapper">
   			<Header />
-  			<div className="container">
+  			<div className="container m-b-3">
   				<Row>
-            {!postList ? 
+            {loading ? 
               <Col md={12} sm={12}>
                 <img
                   src={Loader}
@@ -54,16 +54,7 @@ class Home extends Component {
                 />
               </Col> : null
             }
-            {postList ? postList : 
-              <Col md={12} sm={12}>
-                <img
-                  src={Loader}
-                  className="img-responsive mx-auto d-block"
-                  style={{ height: "100px" }}
-                  alt="loading gif"
-                />
-              </Col>
-            }
+            {postList ? postList : null}
 	  			</Row>
   			</div>
   			<Footer />
