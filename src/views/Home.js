@@ -52,10 +52,10 @@ class Home extends Component {
 
   nextPosts = () => {
     const { posts } = this.state;
-    // console.log(posts.slice(6));
+    // console.log(posts.slice(4));
     this.setState({
       ...this.state,
-      currentPagePosts: posts.slice(6),
+      currentPagePosts: posts.slice(4),
       prev: true,
       next: false
     });
