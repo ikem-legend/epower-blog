@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import HomeItems from "../components/HomeItems";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { baseUrl } from "../constants";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import Loader from "../assets/img/loader.gif";
 
 class Home extends Component {
@@ -11,7 +11,10 @@ class Home extends Component {
     super();
     this.state = {
       posts: [],
-      loading: true
+      currentPagePosts: [],
+      loading: true,
+      prev: false,
+      next: true
     };
   }
 
@@ -19,9 +22,11 @@ class Home extends Component {
     fetch(baseUrl)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        console.log(result.slice(0, 6));
         this.setState({
+          ...this.state,
           posts: result,
+          currentPagePosts: result.slice(0, 6),
           loading: false
         });
       })
@@ -34,9 +39,33 @@ class Home extends Component {
       });
   }
 
+  prevPosts = () => {
+    const { posts } = this.state;
+    console.log(posts.slice(0, 6));
+    this.setState({
+      ...this.state,
+      currentPagePosts: posts.slice(0, 6),
+      prev: false,
+      next: true
+    });
+  };
+
+  nextPosts = () => {
+    const { posts } = this.state;
+    console.log(posts.slice(6));
+    this.setState({
+      ...this.state,
+      currentPagePosts: posts.slice(6),
+      prev: true,
+      next: false
+    });
+  };
+
   render() {
-    const { posts, loading } = this.state;
-    const postList = posts.map(post => <HomeItems key={post.id} post={post} />);
+    const { currentPagePosts, loading, prev, next } = this.state;
+    const postList = currentPagePosts.map(post => (
+      <HomeItems key={post.id} post={post} />
+    ));
     return (
       <div className="wrapper">
         <Header />
@@ -53,6 +82,32 @@ class Home extends Component {
               </Col>
             ) : null}
             {postList || null}
+            {postList && postList.length ? (
+              <Fragment>
+                <div className="offset-md-6 col-md-3">
+                  <Button
+                    color="primary"
+                    size="lg"
+                    className="navbtn"
+                    onClick={this.prevPosts}
+                    disabled={!prev}
+                  >
+                    Previous
+                  </Button>{" "}
+                </div>
+                <div className="col-md-3">
+                  <Button
+                    color="primary"
+                    size="lg"
+                    className="navbtn"
+                    onClick={this.nextPosts}
+                    disabled={!next}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </Fragment>
+            ) : null}
           </Row>
         </div>
         <Footer />

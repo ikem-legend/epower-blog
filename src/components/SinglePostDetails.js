@@ -7,7 +7,7 @@ const SinglePostDetails = ({ post }) => {
       <div className="post m-t-5">
         <h1>{post.title.rendered}</h1>
         <img src={post.featured_image} alt="" />
-        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
       </div>
     </Fragment>
   );

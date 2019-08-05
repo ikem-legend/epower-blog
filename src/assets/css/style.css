@@ -81,3 +81,8 @@ a {
 .post h1 {
   font-weight: bold;
 }
+
+.wrapper .navbtn {
+  border-radius: 40px;
+  font-size: 25px;
+}
