@@ -21,12 +21,12 @@ class SinglePost extends Component {
     // const postId = pathname.split("/")[2];
     const postId = this.props.match.params.id;
     // console.log(postId);
-    fetch(`${baseUrl}?include[]=${postId}`)
+    fetch(`${baseUrl}/${postId}`)
       .then(response => response.json())
       .then(result => {
-        console.log(result[0]);
+        console.log(result);
         this.setState({
-          post: result[0],
+          post: result,
           loading: false
         });
       })
@@ -65,7 +65,7 @@ class SinglePost extends Component {
                 <img
                   src={Loader}
                   className="img-responsive mx-auto d-block"
-                  style={{ height: "100px" }}
+                  style={{ height: "100px", marginTop: "20px" }}
                   alt="loading gif"
                 />
               ) : null}

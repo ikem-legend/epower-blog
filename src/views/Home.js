@@ -11,6 +11,8 @@ class Home extends Component {
     super();
     this.state = {
       posts: [],
+      currPage: 1,
+      currSlice: [0, 6],
       currentPagePosts: [],
       loading: true,
       prev: false,
@@ -19,10 +21,12 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    fetch(baseUrl)
+    fetch(`${baseUrl}?per_page=100`)
       .then(response => response.json())
       .then(result => {
-        console.log(result.slice(0, 6));
+        console.log(result);
+        // console.log(result.slice(0, 6));
+        // console.log(result.slice(6, 12));
         this.setState({
           ...this.state,
           posts: result,
@@ -40,25 +44,69 @@ class Home extends Component {
   }
 
   prevPosts = () => {
-    const { posts } = this.state;
+    const { posts, currSlice, currPage } = this.state;
     // console.log(posts.slice(0, 6));
-    this.setState({
-      ...this.state,
-      currentPagePosts: posts.slice(0, 6),
-      prev: false,
-      next: true
-    });
+    // this.setState({
+    //   ...this.state,
+    //   currentPagePosts: posts.slice(0, 6),
+    //   prev: false,
+    //   next: true
+    // });
+    currSlice[0] -= 6;
+    currSlice[1] -= 6;
+    console.log(currSlice);
+    console.log(posts.slice(...currSlice));
+    // Disable previous button if no content left by checking if the previous page has an index of 0
+    if (currSlice[0] === 0) {
+      this.setState({
+        ...this.state,
+        currPage: currPage - 1,
+        currSlice,
+        currentPagePosts: posts.slice(...currSlice),
+        prev: false,
+        next: true
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        currPage: currPage - 1,
+        currSlice,
+        currentPagePosts: posts.slice(...currSlice),
+        prev: true,
+        next: true
+      });
+    }
   };
 
   nextPosts = () => {
-    const { posts } = this.state;
+    const { posts, currSlice, currPage } = this.state;
     // console.log(posts.slice(4));
-    this.setState({
-      ...this.state,
-      currentPagePosts: posts.slice(4),
-      prev: true,
-      next: false
-    });
+    currSlice[0] += 6;
+    currSlice[1] += 6;
+    console.log(currSlice);
+    console.log(posts.slice(...currSlice));
+    // Disable next button if no content left by checking if at most 7 items are in the next page
+    // We choose 7 because the plast page can have 6 elements
+    // if (posts.slice(currSlice[0], currSlice[1]+1).length < 7) {
+    if (posts.length > currSlice[0] && posts.length <= currSlice[1]) {
+      this.setState({
+        ...this.state,
+        currPage: currPage + 1,
+        currSlice,
+        currentPagePosts: posts.slice(...currSlice),
+        prev: true,
+        next: false
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        currPage: currPage + 1,
+        currSlice,
+        currentPagePosts: posts.slice(...currSlice),
+        prev: true,
+        next: true
+      });
+    }
   };
 
   render() {
@@ -76,7 +124,7 @@ class Home extends Component {
                 <img
                   src={Loader}
                   className="img-responsive mx-auto d-block"
-                  style={{ height: "100px" }}
+                  style={{ height: "100px", marginTop: "20px" }}
                   alt="loading gif"
                 />
               </Col>
