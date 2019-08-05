@@ -10,9 +10,9 @@ function ErrorPage() {
       <div className="container">
         <Row>
           <Col>
-            <p className="text-center">
+            <h1 className="text-center">
               404 Error!!! Page Not Found, please try again
-            </p>
+            </h1>
           </Col>
         </Row>
       </div>

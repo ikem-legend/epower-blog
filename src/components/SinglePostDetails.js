@@ -1,14 +1,16 @@
 import React, { Fragment } from "react";
-import { Col, Card, CardBody, CardImg, CardTitle, CardText } from "reactstrap";
 
-const SinglePostDetails = ({ post }) => (
-  <Fragment>
-    <div>
-      <p>{post.title.rendered}</p>
-      <img src={post.featured_image} alt="" />
-      {post.content.rendered}
-    </div>
-  </Fragment>
-);
+const SinglePostDetails = ({ post }) => {
+  // console.log(props)
+  return (
+    <Fragment>
+      <div className="post m-t-5">
+        <h1>{post.title.rendered}</h1>
+        <img src={post.featured_image} alt="" />
+        <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+      </div>
+    </Fragment>
+  );
+};
 
 export default SinglePostDetails;

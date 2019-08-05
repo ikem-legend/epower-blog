@@ -16,16 +16,17 @@ class SinglePost extends Component {
   }
 
   componentDidMount() {
-    const { pathname } = this.props.location;
-    // console.log(this.props.location)
-    const postId = pathname.split("/")[2];
-    console.log(postId);
+    // const { pathname } = this.props.location;
+    // console.log(this.props.match.params)
+    // const postId = pathname.split("/")[2];
+    const postId = this.props.match.params.id;
+    // console.log(postId);
     fetch(`${baseUrl}?include[]=${postId}`)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        console.log(result[0]);
         this.setState({
-          post: result,
+          post: result[0],
           loading: false
         });
       })
@@ -40,12 +41,23 @@ class SinglePost extends Component {
 
   render() {
     const { post, loading } = this.state;
-    const postList = post.map(singlePost => (
-      <SinglePostDetails key={singlePost.id} post={singlePost} />
-    ));
-    console.log(postList);
+    // const postList = post.map(singlePost => (
+    //   <SinglePostDetails key={singlePost.id} post={singlePost} />
+    // ));
+    // console.log(post)
+    const postList =
+      post && Object.keys(post).length ? (
+        <SinglePostDetails key={post.id} post={post} />
+      ) : null;
+    // console.log(postList)
+    const postTitle = postList
+      ? // console.log(postList.props.post.title.rendered)
+        postList.props.post.title.rendered
+      : null;
+    const postDate = postList ? postList.props.post.post_date : null;
     return (
       <div className="wrapper">
+        {<SinglePostHeader headerText={postTitle} headerDate={postDate} />}
         <div className="container m-b-3">
           <Row>
             <Col md={12} sm={12}>
