@@ -41,7 +41,7 @@ class Home extends Component {
 
   prevPosts = () => {
     const { posts } = this.state;
-    console.log(posts.slice(0, 6));
+    // console.log(posts.slice(0, 6));
     this.setState({
       ...this.state,
       currentPagePosts: posts.slice(0, 6),
@@ -52,7 +52,7 @@ class Home extends Component {
 
   nextPosts = () => {
     const { posts } = this.state;
-    console.log(posts.slice(6));
+    // console.log(posts.slice(6));
     this.setState({
       ...this.state,
       currentPagePosts: posts.slice(6),
