@@ -132,7 +132,7 @@ class Home extends Component {
             {postList || null}
             {postList && postList.length ? (
               <Fragment>
-                <div className="offset-md-6 col-md-3">
+                <div className="offset-md-6 col-md-3 col-3">
                   <Button
                     color="primary"
                     size="lg"
@@ -143,7 +143,7 @@ class Home extends Component {
                     Previous
                   </Button>{" "}
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 col-6 ml-auto">
                   <Button
                     color="primary"
                     size="lg"
